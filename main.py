@@ -1,7 +1,7 @@
 from actions import *
 from calculations.verification import is_payable_amounts_right
 from calculations.batching import create_batches
-# snapshots
+# snapshots for testing
 from data import DEX_DATA, RSWP_DATA, FARM_DATA, YIELD_DATA
 
 # total to be distributed
