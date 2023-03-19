@@ -27,12 +27,13 @@ def json_to_dict(obj: str) -> dict:
 def is_fixed_or_hash_self(hash_value):
     if isinstance(hash_value, dict): 
         if "__fixed__" in hash_value:
-           return Decimal(hash_value["__fixed__"]) 
+            return Decimal(hash_value["__fixed__"]) 
         if "__hash_self__" in hash_value:
             v_h = hash_value["__hash_self__"]
             if isinstance(v_h, int):
                 return v_h
             # __hash_self__ could hold a __fixed__ object
             return Decimal(v_h["__fixed__"])
-
-    return hash_value
+        return 0
+    else:
+        return hash_value
