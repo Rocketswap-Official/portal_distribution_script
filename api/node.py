@@ -3,17 +3,17 @@ from lamden.crypto.wallet import Wallet
 from typing import Any
 from base_logger import logger
 from settings import env
-import requests
+import httpx
 
 MY_WALLET = Wallet(env["priv_key"])
 NODE_URL = env["node_urls"][2]
 
 def get_nonce_and_processor() -> tuple:
     try:
-        response = requests.get(f"{NODE_URL}/nonce/{MY_WALLET.verifying_key}")
+        response = httpx.get(f"{NODE_URL}/nonce/{MY_WALLET.verifying_key}")
         logger.info("Getting nonce and processor")
         return response.json()["nonce"], response.json()["processor"]
-    except requests.exceptions.RequestException as e:
+    except httpx.RequestError as e:
         logger.warning(e)
         return None, None
     except Exception as e:
@@ -40,10 +40,10 @@ def gather_transaction_info(contract: str, method: str, kwargs: dict,
     
 def post_transaction(tx_info: dict) -> dict:
     try:
-        response = requests.post(f"{NODE_URL}", data=tx_info)
+        response = httpx.post(f"{NODE_URL}", data=tx_info)
         logger.info("Posting transaction. . .")
         return response.json()
-    except requests.exceptions.RequestException as e:
+    except httpx.RequestError as e:
         logger.warning(e)
         return {}
     except Exception as e:
@@ -60,9 +60,9 @@ def send_transaction(tx_info: dict) -> dict:
     
 def get_tx_results(tx_hash: str) -> Any:
     try:
-        res = requests.get(f"{NODE_URL}/tx", params={"hash": tx_hash})
+        res = httpx.get(f"{NODE_URL}/tx", params={"hash": tx_hash})
         return res.json()
-    except requests.exceptions.RequestException as e:
+    except httpx.RequestError as e:
         logger.warning(e)
         return {}
     except Exception as e:
