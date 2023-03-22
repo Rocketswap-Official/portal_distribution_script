@@ -1,8 +1,8 @@
 from decouple import config
 
-BLOCKSERVICE_1 = config("ARKO_TEST_BS_1")
-BLOCKSERVICE_2 = config("ARKO_TEST_BS_2")
-BLOCKSERVICE_3 = config("ARKO_TEST_BS_3")
+BLOCKSERVICE_1 = config("ARKO_BS_1")
+BLOCKSERVICE_2 = config("ARKO_BS_2")
+BLOCKSERVICE_3 = config("ARKO_BS_3")
 NODE_1 = config("ARKO_TEST_1")
 NODE_2 = config("ARKO_TEST_2")
 NODE_3 = config("ARKO_TEST_3")
