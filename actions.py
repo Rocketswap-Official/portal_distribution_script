@@ -21,9 +21,8 @@ DISTR = "con_distribute_v2"
 P_TOKEN = "con_yeti_contract_7"
 
 
-# works for RSWP and RSWP staked
-def rswp(obj: dict, contract: str) -> tuple:
-    balances_states = get_hash_states(
+async def rswp(obj: dict, contract: str) -> tuple:
+    balances_states = await get_hash_states(
         all_states=obj, contract=contract, variable="balances"
     )
     eligible_wallets = collect_eligible_wallets(states=balances_states)
@@ -35,11 +34,10 @@ def rswp(obj: dict, contract: str) -> tuple:
     return user_eligible_wallets, user_balances, balance_sum
 
 
-# works for RSWP LP and RSWP LP staked
-def rswp_lp(
+async def rswp_lp(
     obj: dict, contract: str, variable: str, total_lp: float, token_reserve: float
 ) -> tuple:
-    lp_points_states = get_hash_states(
+    lp_points_states = await get_hash_states(
         all_states=obj, contract=contract, variable=variable
     )
     lp_weight = set_lp_weight(token_reserve=token_reserve, total_lp=total_lp)
@@ -122,7 +120,7 @@ def distribute_to_all(all_wallets: list, all_amounts: list):
         time.sleep(2)
 
 
-def create_list_of_lists(lst: list):
+async def create_list_of_lists(lst: list):
     l = []
     for i in lst:
         b = create_batches(data=i, batch_size=100)
