@@ -5,7 +5,6 @@ from calculations.batching import create_batches
 # from data import DEX_DATA, RSWP_DATA, FARM_DATA, YIELD_DATA
 import asyncio 
 import httpx
-import time
 
 # total to be distributed
 AMOUNT = Decimal("1666431.61011361")
@@ -79,14 +78,11 @@ async def main():
         all_wallets = await create_list_of_lists(lst=ws)
         # distribute to all:
         # RSWP staked LP, RSWP staked, RSWP LP, RSWP
-        # distribute_to_all(all_wallets=all_wallets , all_amounts=all_amounts)
+        distribute_to_all(all_wallets=all_wallets , all_amounts=all_amounts)
 
     else:
         print("Payable amounts not right!")
 
 
 if __name__ == "__main__":
-    st = time.perf_counter()
     asyncio.run(main())
-    print(f"{time.perf_counter() - st} sec")
-    # main()
