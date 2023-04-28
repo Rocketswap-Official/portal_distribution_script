@@ -1,6 +1,5 @@
 from api.blockservice import *
 from api.node import gather_transaction_info, get_nonce_and_processor, send_transaction
-from typing import Callable
 from calculations.collecting import *
 from calculations.extraction import *
 from calculations.filtering import *
@@ -18,7 +17,7 @@ FARM = "con_staking_rswp_rswp_interop_v2"
 YIELD = "con_liq_mining_rswp_rswp"
 WALLET_DEV = "fcefe7743fa70c97ae2d5290fd673070da4b0293da095f0ae8aceccf5e62b6a1"
 DISTR = "con_distribute_v2"
-P_TOKEN = "con_yeti_contract_7"
+P_TOKEN = "con_portal"
 
 
 async def rswp(obj: dict, contract: str) -> tuple:
@@ -89,6 +88,8 @@ def pay_rewards(wallet_list: list, amount_list: list):
         "amounts": amount_list,
     }
     stamps = estimate_stamps_for_batch(batch=wallet_list)
+
+    # print(kwargs)
 
     result = send_distr_transaction(
         contract=DISTR, method=method, kwargs=kwargs, stamps=stamps
